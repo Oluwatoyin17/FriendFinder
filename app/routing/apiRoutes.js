@@ -3,6 +3,7 @@
 // We are linking our routes to a series of "data" sources.
 // These data sources hold arrays of information on friends-data.
 // ===============================================================================
+console.log("Hello");
 var path = require("path");
 var friends = require("../data/friends");
 
@@ -35,23 +36,39 @@ module.exports = function(app) {
   app.post("/api/friends", function(req, res) {
   var userName = req.body;
   var userAnswers = userInput.scores;
-  var matchFriend = "";
-  var matchPhoto = "";
-  var totalDiff = 10000;
+var friendMatch = {
+
+    name: "",
+
+    photo: "",
+
+    friendDiff: 1000,
+
+  };
 
   for (var i = 0; i<friends.length; i++){
-      var diff = 0;
+    console.log(friends[i].name);
+    // difference between the user's score and the data user's score
+      var totalDiff = 0;
+
+      // loop through the scores of the friend's score
       for (var j = 0; j < userAnswers.length; j++){
-          diff += Math.abs(friends[i].score[j]-userAnswers[j]);
+        // calculate the difference and store in totaldiff
+          totalDiff += Math.abs(friends[i].score[j]-userAnswers[j]);
       }
-  
-  if (diff < totalDiff){
-      totalDiff = diff;
-      matchFriend = friends[i].name;
-      matchPhoto = friends[i].photo;
+  // if totalDiff is less than friendDiff 
+  if (totalDiff < friedMatch.friendDiff){
+        console.log('friendMatch.name = ' + friends[i].name);
+        console.log('friendMatch.photo = ' + friends[i].photo);
+      // reset the friendMatch with the new match
+      friendMatch.friendDiff = totaldiff;
+      friendMatch.name = friends[i].name;
+      friendMatch.photo = friends[i].photo;
   }
 }
+
+// push the new user to the data
 friends.push(userName);
-res.json({status: "OK", matchFriend: matchFriend, matchPhoto:matchPhoto});
+res.json(friendMatch);
   });
 };
