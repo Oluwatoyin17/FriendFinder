@@ -8,7 +8,6 @@ var path = require("path");
 var friends = require("../data/friends");
 
 
-
 // ===============================================================================
 // ROUTING
 // ===============================================================================
@@ -34,8 +33,9 @@ module.exports = function(app) {
   // ---------------------------------------------------------------------------
 
   app.post("/api/friends", function(req, res) {
-  var userName = req.body;
-  var userAnswers = userInput.scores;
+  var userData = req.body;
+  // var userAnswers = userData.scores;
+  var userAnswers = userData.scores;
 var friendMatch = {
 
     name: "",
@@ -54,21 +54,21 @@ var friendMatch = {
       // loop through the scores of the friend's score
       for (var j = 0; j < userAnswers.length; j++){
         // calculate the difference and store in totaldiff
-          totalDiff += Math.abs(friends[i].score[j]-userAnswers[j]);
+          totalDiff += Math.abs(friends[i].scores[j]-userAnswers[j]);
       }
   // if totalDiff is less than friendDiff 
-  if (totalDiff < friedMatch.friendDiff){
+  if (totalDiff < friendMatch.friendDiff){
         console.log('friendMatch.name = ' + friends[i].name);
         console.log('friendMatch.photo = ' + friends[i].photo);
       // reset the friendMatch with the new match
-      friendMatch.friendDiff = totaldiff;
+      friendMatch.friendDiff = totalDiff;
       friendMatch.name = friends[i].name;
       friendMatch.photo = friends[i].photo;
   }
 }
 
 // push the new user to the data
-friends.push(userName);
+friends.push(userData);
 res.json(friendMatch);
   });
 };
