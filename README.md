@@ -5,3 +5,5 @@ This is compatibility-based "FriendFinder" application. This full-stack web appl
 Express is used to handle routing.
 
 The survey consists of 10 questions. Each answer is on a scale of 1 to 5 based on how much the user agrees or disagrees with a question. This answers is then compared to the answers of other uses to get the best match for each user.
+
+[FriendFinder](https://intense-journey-19149.herokuapp.com/)
